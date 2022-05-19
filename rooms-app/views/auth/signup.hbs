@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1>Signup form</h1>
+
+      <hr>
+
+      <form action="/auth/signup" method="POST">
+
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input required type="text" class="form-control" id="email" name="email">
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input required type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Full Name</label>
+          <input  type="text" class="form-control" id="fullName" name="fullName">
+        </div>
+        <div class="mb-3">
+          <label for="slackId" class="form-label">Slack Id</label>
+          <input  type="text" class="form-control" id="slackId" name="slackId">
+        </div>
+        <div class="mb-3">
+          <label for="googleId" class="form-label">Google Id</label>
+          <input  type="text" class="form-control" id="googleId" name="googleId">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Sign up</button>
+        <a href="/" class="btn btn-dark">Go back</a>
+      </form>
+      <hr>
+    </div>
+  </div>
+  <div>
+    <p>
+      {{errorMessage}}
+    </p>
+  </div>
+</div>

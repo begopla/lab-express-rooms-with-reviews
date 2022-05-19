@@ -1,0 +1,25 @@
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+a {
+  color: whitesmoke;
+	font-weight: 600;
+	text-decoration: none;
+	transition: var(--transition);
+	display: inline-block;
+}
+
+h1 {
+  color: 15px;
+  margin: 2%;
+}
+
+p{
+  margin: 3%;
+  padding-left: 5%;
+}
