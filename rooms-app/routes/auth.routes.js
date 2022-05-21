@@ -69,6 +69,7 @@ router.get("/login",isLoggedOut, (req,res) =>{
 
 router.post("/login", isLoggedOut,async (req, res, next)=>{
     const { email, password } =req.body;
+    
     if (!email || !password) {
 		return res.render("auth/signin", {
 			errorMessage: "Please provide an email and a a password",

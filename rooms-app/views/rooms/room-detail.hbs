@@ -1,0 +1,24 @@
+
+<div class="room-container">
+    <h2>{{name}}</h2>
+    <hr>
+    <div class="card col-9" style="width: 40rem;">
+     <img src="{{imageUrl}}" class="card-img-top" alt="Room Image">
+        <div class="card-body">
+            <h5 class="card-title">{{description}}</h5>
+
+        </div>
+    </div>
+    <div id="button-container">
+    <a href="/rooms/{{id}}/edit" class="btn btn-dark">Edit</a>
+    <form action="/rooms/{{id}}/delete" method="post"><button class="btn btn-dark">Delete</button></form>
+    <a href="/rooms/allrooms" class="btn btn-dark">Go back</a>
+    </div>
+
+        <div>
+            <p>
+                {{errorMessage}}
+            </p>
+        </div>
+</div>
+

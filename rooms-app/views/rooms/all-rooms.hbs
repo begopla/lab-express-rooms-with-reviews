@@ -1,0 +1,23 @@
+
+<h1>Discover all rooms</h1>
+<hr>
+
+<div class="row">
+
+{{#each rooms}}
+<div class="card col-3" style="width:18 rem ;">
+<img src="{{imageUrl}}" class="card-img-top" alt="Room image">
+<div class="card-body">
+    
+    <h5 class="card-title">{{name}}</h5>
+    <a href="/rooms/{{id}}">See details</a>
+    <hr>
+    <form action="/rooms/{{id}}/delete" method="post"><button class="btn btn-dark">Delete</button></form>
+    
+    
+    </form>
+    
+</div>
+</div>
+{{/each}}
+</div>

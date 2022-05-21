@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1>New Room</h1>
+
+      <hr>
+
+      <form action="/rooms/create" method="POST">
+
+        <div class="mb-3">
+          <label for="name" class="form-label">Name: </label>
+          <input required type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description: </label>
+          <input required type="text" class="form-control" id="description" name="description">
+        </div>
+        <div class="mb-3">
+          <label for="imageUrl" class="form-label">Image link: </label>
+          <input  type="url" class="form-control" id="imageUrl" name="imageUrl">
+        </div>
+           
+
+        <button type="submit" class="btn btn-dark">Create</button>
+        <a href="/profile" class="btn btn-dark">Go back</a>
+      </form>
+      <hr>
+    </div>
+  </div>
+  <div>
+    <p>
+      {{errorMessage}}
+    </p>
+  </div>
+</div>
