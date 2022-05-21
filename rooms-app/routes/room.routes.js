@@ -99,6 +99,23 @@ router.post("/:id/delete", async (req,res,next) =>{
     }
 });
 
+//Adding reviews (get/post)
+
+router.get("/:id/add-review", isLoggedIn, (req, res, next)=>{
+    res.render("rooms/newComment")
+});
+
+router.post("/:id/add-review", isLoggedIn, async(req,res,next)=>{
+   try {
+    const { id } = req.params;
+    const {comment} = req.body;
+    await Room.findByIdAndUpdate(id, comment,{new: true});
+    res.redirect('/');
+   } catch (error) {
+      next(error);
+   }
+});
+
 //Load room detail
 
 router.get("/:id", async(req,res,next)=>{
@@ -111,13 +128,12 @@ router.get("/:id", async(req,res,next)=>{
     }
 });
 
-//Loging out
+//Logging out
 
 router.get("/auth/logout", (req, res, next) => {
     req.session.destroy();
     res.redirect("/auth/login");
   });
-
 
 
 
