@@ -5,7 +5,9 @@ const { model } = require("mongoose");
 const { isLoggedIn } = require("../middlewares/auth.middlewares.js");
 const Room = require("../models/Room.model");
 const User = require("../models/User.model");
-const isRoomOwner = require("../middlewares/isOwner")
+const Review = require("../models/Review.model")
+const isRoomOwner = require("../middlewares/isOwner");
+const { findById } = require("../models/Room.model");
 
 
 //Load all available rooms
@@ -102,14 +104,24 @@ router.post("/:id/delete", async (req,res,next) =>{
 //Adding reviews (get/post)
 
 router.get("/:id/add-review", isLoggedIn, (req, res, next)=>{
-    res.render("rooms/newComment")
+    res.render("rooms/newComment", {_id: req.params.id})
 });
 
-router.post("/:id/add-review",  async(req,res,next)=>{
+router.post("/:id/add-review",  async (req,res,next)=>{
    try {
     const { id } = req.params;
+   
     const {comment} = req.body;
-    await Room.findByIdAndUpdate(id, comment,{new: true});
+    const user = req.session.currentUser._id;
+
+    const newReview = await Review.create({user,comment});
+
+    const newRoomDetail = await Room.findByIdAndUpdate(id,{reviews:newReview});
+
+   
+    
+   // await Room.findByIdAndUpdate(id, newReview)
+    
     res.redirect('/');
    } catch (error) {
       next(error);
@@ -121,9 +133,14 @@ router.post("/:id/add-review",  async(req,res,next)=>{
 router.get("/:id", async(req,res,next)=>{
     try {
         const{ id } =req.params;
-        const roomDetails = await Room.findById(id);
-        console.log(req.session.currentUser)
-        res.render("rooms/room-detail", {roomDetails, currentUser: req.session.currentUser} );
+        
+        const roomDetails = await Room.findById(id)
+      
+        const allReviews = await roomDetails.populate('reviews');
+    
+        const arrayOfReviews =allReviews.reviews;
+
+        res.render("rooms/room-detail", {roomDetails,arrayOfReviews, currentUser: req.session.currentUser} );
     } catch (error) {
         next(error);       
     }
