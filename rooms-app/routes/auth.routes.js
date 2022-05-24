@@ -11,8 +11,9 @@ router.get('/signup',isLoggedOut,(req, res, next) => {
     res.render('auth/signup');
 });
 
-router.post('/signup',isLoggedOut ,async (req, res, next) =>{
+router.post('/signup',[isLoggedOut, uploader.single('profilePic')] ,async (req, res, next) =>{
    const { email, password, fullName, slackId, googleId } =req.body;
+   console.log(req.file);
    if(!email ||!password){
        return res.render('auth/signup',{errorMessage: `Your password or email are not valid`})
    }
@@ -50,7 +51,8 @@ router.post('/signup',isLoggedOut ,async (req, res, next) =>{
         password: hashedPassword,
         fullName, 
         slackId,
-        googleId
+        googleId,
+        profilePic: req.file.path
    });
    console.log('I have created a user');
    const objectUser = createdUser.toObject();
@@ -67,14 +69,22 @@ router.get("/login",isLoggedOut, (req,res) =>{
     res.render("auth/login");
 });
 
-router.post("/login", isLoggedOut,async (req, res, next)=>{
+router.post("/login",  async (req, res, next)=>{
     const { email, password } =req.body;
     
     if (!email || !password) {
 		return res.render("auth/signin", {
 			errorMessage: "Please provide an email and a a password",
-		})
+		});
 	}
+  const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
+
+  if (!regex.test(password)) {
+   return res.render("auth/signup", {
+     errorMessage:
+       "Password needs to be 8 char long, including lower/upper case and a digit",
+   });
+   }
 
 	try {
 		const foundUser = await User.findOne({ email })

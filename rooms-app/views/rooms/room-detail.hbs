@@ -1,5 +1,6 @@
 
 <div class="room-container">
+{{#with roomDetails}}
     <h2>{{name}}</h2>
     <hr>
     <div class="card col-9" style="width: 40rem;">
@@ -10,12 +11,15 @@
         </div>
     </div>
     <div id="button-container">
-    <a href="/rooms/{{id}}/edit" class="btn btn-dark">Edit</a>
-    <form action="/rooms/{{id}}/delete" method="post"><button class="btn btn-dark">Delete</button></form>
-    <a href="/rooms/allrooms" class="btn btn-dark">Go back</a>
+      {{#if ../currentUser}}
+        <a href="/rooms/{{id}}/edit" class="btn btn-dark">Edit</a>
+        <form action="/rooms/{{id}}/delete" method="post"><button class="btn btn-dark">Delete</button></form>
+      {{/if}}
+        <a href="/rooms/allrooms" class="btn btn-dark">Go back</a>
     </div>
     <hr>
     <a href="/rooms/{{id}}/add-review" class="btn btn-dark">Add a review</a>
+    {{/with}}
         <div>
             <p>
                 {{errorMessage}}

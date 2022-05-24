@@ -5,7 +5,7 @@
 
       <hr>
 
-      <form action="/auth/signup" method="POST">
+      <form action="/auth/signup" method="POST" enctype="multipart/form-data">
 
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -26,6 +26,10 @@
         <div class="mb-3">
           <label for="googleId" class="form-label">Google Id</label>
           <input  type="text" class="form-control" id="googleId" name="googleId">
+        </div>
+         <div class="mb-3">
+          <label for="profilePic" class="form-label">Profile picture</label>
+          <input  type="file" class="form-control" id="profilePic" name="profilePic">
         </div>
 
         <button type="submit" class="btn btn-dark">Sign up</button>

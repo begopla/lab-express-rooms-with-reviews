@@ -105,7 +105,7 @@ router.get("/:id/add-review", isLoggedIn, (req, res, next)=>{
     res.render("rooms/newComment")
 });
 
-router.post("/:id/add-review", isLoggedIn, async(req,res,next)=>{
+router.post("/:id/add-review",  async(req,res,next)=>{
    try {
     const { id } = req.params;
     const {comment} = req.body;
@@ -122,7 +122,8 @@ router.get("/:id", async(req,res,next)=>{
     try {
         const{ id } =req.params;
         const roomDetails = await Room.findById(id);
-        res.render("rooms/room-detail", roomDetails );
+        console.log(req.session.currentUser)
+        res.render("rooms/room-detail", {roomDetails, currentUser: req.session.currentUser} );
     } catch (error) {
         next(error);       
     }
