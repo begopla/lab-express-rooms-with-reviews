@@ -23,6 +23,7 @@ const userSchema = new Schema(
     // this second object adds extra properties: `createdAt` and `updatedAt`
     timestamps: true,
   }
+  //TODO:create Like schema with reference to User and Event and add counter to Event. // for reference see this post https://stackoverflow.com/questions/62805858/facebook-like-feature-with-mongodb-schema-endpoint-design 
 );
 
 const User = model("User", userSchema);

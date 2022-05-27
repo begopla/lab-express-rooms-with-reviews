@@ -110,13 +110,16 @@ router.get("/:id/add-review", isLoggedIn, (req, res, next)=>{
 router.post("/:id/add-review",  async (req,res,next)=>{
    try {
     const { id } = req.params;
+    
    
     const {comment} = req.body;
     const user = req.session.currentUser._id;
 
-    const newReview = await Review.create({user,comment});
+    const newReview = await Review.create({user, comment, id}); 
+    // const allreviewsbyUser = await Review.find({user})
+    // console.log(allreviewsbyUser);
 
-    const newRoomDetail = await Room.findByIdAndUpdate(id,{reviews:newReview});
+    const newRoomDetail = await Room.findByIdAndUpdate(id,{reviews:newReview});//TODO: I am only updating the Room with the last review created but not all of them
 
    
     
@@ -139,8 +142,9 @@ router.get("/:id", async(req,res,next)=>{
         const allReviews = await roomDetails.populate('reviews');
     
         const arrayOfReviews =allReviews.reviews;
+        console.log(arrayOfReviews)
 
-        res.render("rooms/room-detail", {roomDetails,arrayOfReviews, currentUser: req.session.currentUser} );
+        res.render("rooms/room-detail", {roomDetails, arrayOfReviews, currentUser: req.session.currentUser} );
     } catch (error) {
         next(error);       
     }
